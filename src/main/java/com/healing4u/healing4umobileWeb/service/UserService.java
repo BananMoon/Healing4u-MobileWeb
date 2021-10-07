@@ -1,22 +1,10 @@
 package com.healing4u.healing4umobileWeb.service;
 
-import com.healing4u.healing4umobileWeb.model.User;
-import com.healing4u.healing4umobileWeb.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.healing4u.healing4umobileWeb.data.dto.UserDto;
 
-import java.util.List;
+public interface UserService {
+    // 클래스에서 구현하게 되면, DBMS를 바꿀 때, 인터페이스를 이용하는게 의존성이 적을 수 있음
 
-@RequiredArgsConstructor
-@Service
-public class UserService {
+    UserDto getUserEntity(long user_id);
 
-//    private final UserRepository userRepository;
-//
-//    public List<User> findUsers() {
-//        return userRepository.findAll();
-//    }
-//    public User getUser (int user_id) {
-//        return userMapper.getUser(user_id);
-//    }
 }
