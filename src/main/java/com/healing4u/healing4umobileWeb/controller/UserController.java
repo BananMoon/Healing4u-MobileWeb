@@ -22,16 +22,16 @@ public class UserController {
     private final UserService userService;
     private final UserRepository userRepository;
 
-    @GetMapping("/home/{userId}")
-    public UserDto getUserEntity(@PathVariable long userId) {
-        // 1. users 테이블 - now_emotion, ad_id
-        //   now_emotion : my weather에 사용
-        //   ad_id : 다른 함수에서 사용 (advertisement 테이블에서 조회 예정)
-
-        //id로 데이터 조회
-        UserEntity user = userRepository.findById(userId).orElseThrow(
-                ()-> new IllegalArgumentException("아이디가 존재하지 않습니다.")
-        );
+//    @GetMapping("/home/{userId}")
+//    public UserDto getUserEntity(@PathVariable long userId) {
+//        // 1. users 테이블 - now_emotion, ad_id
+//        //   now_emotion : my weather에 사용
+//        //   ad_id : 다른 함수에서 사용 (advertisement 테이블에서 조회 예정)
+//
+//        //id로 데이터 조회
+//        UserEntity user = userRepository.findById(userId).orElseThrow(
+//                ()-> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+//        );
 
         // 2. users 테이블 - 금일 모든 users의 now_emotion
         // findALl() -> (updatedAt 기준) 오늘 날짜에 해당하는 now_emotion 갯수 세기
@@ -45,8 +45,8 @@ public class UserController {
 //        userRepository.fromJSONtoItems(resultString);
 
 
-        return userService.getUserEntity(userId);
-    }
+//        return userService.getUserEntity(userId);
+//    }
 
 
 
