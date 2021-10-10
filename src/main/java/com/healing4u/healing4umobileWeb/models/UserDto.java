@@ -1,5 +1,4 @@
-package com.healing4u.healing4umobileWeb.data.dto;
-import com.healing4u.healing4umobileWeb.data.entity.UserEntity;
+package com.healing4u.healing4umobileWeb.models;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

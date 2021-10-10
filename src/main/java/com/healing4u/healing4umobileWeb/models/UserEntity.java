@@ -1,6 +1,6 @@
-package com.healing4u.healing4umobileWeb.data.entity;
+package com.healing4u.healing4umobileWeb.models;
 
-import com.healing4u.healing4umobileWeb.data.dto.UserDto;
+import com.healing4u.healing4umobileWeb.models.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,20 +26,11 @@ public class UserEntity { //테이블과 직접적으로 매핑되는 클래스
 
     private String today;
 
-    @ManyToOne(fetch = FetchType.LAZY)  //LAZY를 사용하려면, 이걸 사용하는 구간에 Transactional을 붙여줘야 한다.
+//    @ManyToOne(fetch = FetchType.LAZY)  //LAZY를 사용하려면, 이걸 사용하는 구간에 Transactional을 붙여줘야 한다.
     @Column(nullable = false)
     private int ad_id;
 //    @Column(nullable = false)
 //    private LocalDate createdAt;
 
-    public UserDto toDto() {
-        return UserDto.builder()
-                .user_id(user_id)
-                .now_emotion(now_emotion)
-                .rating(rating)
-                .today(today)
-                .ad_id(ad_id)
-                .build();
-    }
 }
 

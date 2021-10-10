@@ -7,18 +7,23 @@
         <meta name="author" content="" />
         <title>Healing4U Project Mobile Web</title>
         <!-- Favicon-->
-        <head profile="http://www.w3.org/2005/10/profile">
+        <head profile="http://www.w3.org/2005/10/profile"/>
         <link rel="icon" type="image/x-icon" th:href="@{/bootstrap/favicon.ico}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/our.js" crossorigin="anonymous"></script>
+        <!-- kakao map api -->
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d62bcc05dfbf77b728800bcd01b64ec4&libraries=services,clusterer"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link th:href="@{/bootstrap/css/styles.css}" rel="stylesheet" />
+        <link th:href="@{/bootstrap/css/custom.css}" rel="stylesheet"/>
+        <!-- Core theme JS -->
+        <script src="/bootstrap/scripts.js"></script>
     </head>
     <body id="page-top">
-        <!-- Navigation-->
+            <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="#page-top"><img src="/bootstrap/img/navbar-logo.svg" alt="..." /></a>
@@ -30,7 +35,7 @@
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#my_weather">My Weather</a></li>
                         <li class="nav-item"><a class="nav-link" href="#our_weather">Our Weather</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Ranking</a></li>
                         <li class="nav-item"><a class="nav-link" href="#history">History</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
                     </ul>
@@ -58,7 +63,7 @@
         <section class="page-section" id="our_weather">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">전국 마음의 날씨</h2>
+                    <h2 class="section-heading text-uppercase">마음의 날씨</h2>
                     <h3 class="section-subheading text-muted">다른 사람들의 마음의 날씨는 어떤지 확인해봐요!</h3>
                 </div>
                 <div class="row text-center">
@@ -89,8 +94,8 @@
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">portfolio</h2>
-                    <h3 class="section-subheading text-muted">다른 사람들이 많이 본 추천 힐링 및 광고는 무엇인지 확인해봐요!</h3>
+                    <h2 class="section-heading text-uppercase">Ranking</h2>
+                    <h3 class="section-subheading text-muted">다른 사람들이 가장 추천하는 힐링 광고는 무엇인지 확인해봐요!</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -227,7 +232,7 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">portfolio 1위</h2>
+                                    <h2 class="text-uppercase">Ranking 1위</h2>
                                     <p class="item-intro text-muted">랭킹 1위 광고가 들어올 곳</p>
                                     <img class="img-fluid d-block mx-auto" src="/bootstrap/img/feel/smile.png" alt="..." />
                                     <p>광고에 대한 상세 설명이 필요합니다.</p>
@@ -241,11 +246,15 @@
                                             address
                                         </li>
                                     </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" type="button" onclick="location.href = 'https://map.kakao.com/link/to/메가박스_강남,37.5004,127.0270'">
+                                    <!--네이버지도 표시할 공간-->
+                                    <div id="map" style="width:100%;height:350px;"></div>
+
+
+<!--                                    <button class="btn btn-primary btn-xl text-uppercase" type="button" onclick="location.href = 'https://map.kakao.com/link/to/메가박스_강남,37.5004,127.0270'">-->
                                         <!-- x 아이콘 표시 -->
                                         <!-- <i class="fas fa-times me-1"></i> -->
-                                        길찾기
-                                    </button>
+<!--                                        길찾기-->
+<!--                                    </button>-->
                                 </div>
                             </div>
                         </div>
@@ -433,10 +442,24 @@
                 </div>
             </div>
         </div>
+        <!-- userId setting modal popup -->
+        <div id="container" class="popup-container">
+            <div class="popup">
+                <button id="close" class="close">
+                    X
+                </button>
+                <h1>📝사용자 ID 등록하기</h1>
+                <p>옥외패널에서 제공한 사용자의 아이디를 <br/> 등록한 후에, 관련 서비스를 제공받을 수 있습니다.</p>
+                <div>
+                    <input type="text" id="myid" placeholder="아이디를 숫자로 입력하세요.">
+                </div>
+                <button class="cta" onclick="setMyId()">등록하기</button>
+            </div>
+        </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-<!--        <script src="js/scripts.js"></script>-->
+<!--        <script src="/bootstrap/scripts.js"></script>-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
