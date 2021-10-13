@@ -9,12 +9,12 @@
 
 window.addEventListener('DOMContentLoaded', event => {
     // modal popup
-    document.querySelector('.popup-container').className += ' active';
+    // document.querySelector('.popup-container').className += ' active';
 
     // x버튼
-    document.querySelector('.close').addEventListener('click', function () {
-        document.querySelector('.popup-container').classList.remove('active');
-    });
+    // document.querySelector('.close').addEventListener('click', function () {
+    //     document.querySelector('.popup-container').classList.remove('active');
+    // });
 
     // Navbar shrink function
     var navbarShrink = function () {
