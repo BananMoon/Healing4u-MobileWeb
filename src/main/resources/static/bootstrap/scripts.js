@@ -3,14 +3,11 @@
 * Copyright 2013-2021 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
 */
-//
-// Scripts
-//
 
+// 페이지 로드되자마자 실행되는 메서드
 window.addEventListener('DOMContentLoaded', event => {
     // modal popup
     // document.querySelector('.popup-container').className += ' active';
-
     // x버튼
     // document.querySelector('.close').addEventListener('click', function () {
     //     document.querySelector('.popup-container').classList.remove('active');

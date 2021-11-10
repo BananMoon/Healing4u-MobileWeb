@@ -1,4 +1,4 @@
-package com.healing4u.healing4umobileWeb.domain.advertisement;
+package com.healing4u.healing4umobileWeb.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

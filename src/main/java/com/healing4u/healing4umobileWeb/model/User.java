@@ -1,6 +1,5 @@
-package com.healing4u.healing4umobileWeb.domain.users;
+package com.healing4u.healing4umobileWeb.model;
 
-import com.healing4u.healing4umobileWeb.domain.advertisement.Advertisement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +14,8 @@ import java.time.LocalDateTime;
 @Table(name="users")
 @Getter
 @Entity
-public class Users {
-    @Column(name="urser_id", nullable = false)
+public class User {
+    @Column(name="user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long userId;
