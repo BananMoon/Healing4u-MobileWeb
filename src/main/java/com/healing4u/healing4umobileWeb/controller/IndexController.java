@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 @RestController
@@ -24,22 +25,27 @@ public class IndexController {
 //        return "index";
 //    }
 
+    // List와 ArrayList 차이
+    // List : 인터페이스, ArrayList : 클래스
+    //  ArrayList 는 동적으로 크기를 변경할 수 있다.
+    //  '특정' 위치에 element를 추가, 삭제가 가능하다.
+    // Generic 을 사용하지 않고 선언한다면 다양한 타입의 객체를 저장할 수 있다.
+    // ListIterator 를 사용해 양방향 순회가 가능하다.
     @GetMapping("/emotion")
-    public List<Object> list() {
-//        List<Object> li =
-//        System.out.println(li.get(0));
-//        System.out.println((String)li.get(1));
-//        System.out.println(li.get(2).toString());
-        List<Object> al= userService.countEmotions();
-        // 어떻게 값을 나타내지?
-//        for (Object objArr : al) {
-//            System.out.println(objArr);
-//        }
-//        System.out.println(Arrays.deepToString(al));
+    public List<Object[]> list() {
 
-        System.out.println(al); // [[Ljava.lang.Object;@672dfc21, [Ljava.lang.Object;@29da6254, [Ljava.lang.Object;@46543ce1]
-//        return userService.countEmotions();
-        return al;
+        List<Object[]> l= userService.countEmotions();
+        HashMap<String,Integer> map1 = new HashMap<String, Integer>();
+
+        // Object[] 이므로 형변환 해줘야한다.
+        for (Object[] o : l) {
+            String emotion = String.valueOf( o[0]);
+            int count = Integer.parseInt( o[1].toString());
+            map1.put(emotion, count);
+        }
+        System.out.println(map1.get("0"));
+
+        return l;
     }
 
     // http://localhost:2004/home/user/11

@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Object> countEmotions() {
+    public List<Object[]> countEmotions() {
         return userRepository.countEmotions();
     }
 //    public UsersResponseDto findById(Long userId) {
