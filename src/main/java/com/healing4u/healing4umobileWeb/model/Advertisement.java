@@ -42,4 +42,10 @@ public class Advertisement {
 
     @Column(length = 200, nullable = false)
     private String src;
+
+    @Override
+    public String toString() {
+//        return "AdId : " + this.getAdId() + ", emotion : " + this.getEmotion() + ", season : " + this.getSeason() +...
+        return ""+this.getAdId();
+    }
 }
