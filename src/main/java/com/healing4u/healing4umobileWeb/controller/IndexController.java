@@ -5,25 +5,27 @@ import com.healing4u.healing4umobileWeb.model.User;
 import com.healing4u.healing4umobileWeb.repository.UserRepository;
 import com.healing4u.healing4umobileWeb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
 
-@RestController
+@Controller
 public class IndexController {
     UserRepository userRepository;
 
     @Autowired
     private UserService userService;
 // qrcode로부터 요청되는 api -> 페이지가 로드되면서 "/home/user/{userId}" 다시 ajax로 호출?
-//    @GetMapping("/")
-//    public String index(@PathVariable Long userId) {
-//        userId로 정보 찾은 후 함께 뿌려줘야함..
-//        return "index";
-//    }
+    @GetMapping("/")
+    public String modal() {
+        //userId로 정보 찾은 후 함께 뿌려줘야함..
+        return "modal";
+    }
+
+
+/*
 
     // List와 ArrayList 차이
     // List : 인터페이스, ArrayList : 클래스
@@ -32,24 +34,24 @@ public class IndexController {
     // Generic 을 사용하지 않고 선언한다면 다양한 타입의 객체를 저장할 수 있다.
     // ListIterator 를 사용해 양방향 순회가 가능하다.
     @GetMapping("/emotion")
-    public List<Object[]> list() {
+    public HashMap<String,Integer> list() {
 
-        List<Object[]> l= userService.countEmotions();
-        HashMap<String,Integer> map1 = new HashMap<String, Integer>();
+        List<Object[]> emotionQuery= userService.countEmotions();
+        HashMap<String,Integer> emotionMap = new HashMap<String, Integer>();
 
         // Object[] 이므로 형변환 해줘야한다.
-        for (Object[] o : l) {
+        for (Object[] o : emotionQuery) {
             String emotion = String.valueOf( o[0]);
-            int count = Integer.parseInt( o[1].toString());
-            map1.put(emotion, count);
+            int count = Integer.parseInt(o[1].toString());
+            emotionMap.put(emotion, count);
         }
-        System.out.println(map1.get("0"));
+        System.out.println(emotionMap.entrySet());
 
-        return l;
+        return emotionMap;
     }
 
     // http://localhost:2004/home/user/11
-    @GetMapping("/home/user/{userId}")
+    @GetMapping("/home/user/:userId")
     public User getUsers(@PathVariable Long userId) {
         // =========== userId의 해당하는 광고id를 가져와서 로컬db에 저장
         User user =  userRepository.findById(userId).orElseThrow(() -> {
@@ -71,5 +73,6 @@ public class IndexController {
 //            }
 //        }
         return user;
-    }
+ */
 }
+
