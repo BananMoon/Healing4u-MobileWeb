@@ -24,9 +24,11 @@ public class IndexController {
         return "modal";
     }
 
-
+    @GetMapping("/home")
+    public String home() {
+        return "index";
+    }
 /*
-
     // List와 ArrayList 차이
     // List : 인터페이스, ArrayList : 클래스
     //  ArrayList 는 동적으로 크기를 변경할 수 있다.
@@ -36,7 +38,7 @@ public class IndexController {
     @GetMapping("/emotion")
     public HashMap<String,Integer> list() {
 
-        List<Object[]> emotionQuery= userService.countEmotions();
+        List<Object[]> emotionQuery= userService.findEmotionCount();
         HashMap<String,Integer> emotionMap = new HashMap<String, Integer>();
 
         // Object[] 이므로 형변환 해줘야한다.
@@ -48,14 +50,14 @@ public class IndexController {
         System.out.println(emotionMap.entrySet());
 
         return emotionMap;
-    }
+    } */
 
     // http://localhost:2004/home/user/11
     @GetMapping("/home/user/:userId")
     public User getUsers(@PathVariable Long userId) {
         // =========== userId의 해당하는 광고id를 가져와서 로컬db에 저장
-        User user =  userRepository.findById(userId).orElseThrow(() -> {
-            return new NullPointerException("해당 사용자는 없습니다. id : "+ userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            return new NullPointerException("해당 사용자는 없습니다. id : " + userId);
         });
         Advertisement adId = user.getAdId();
         // 로컬 db에 저장 실행 -> 프론트에서 해야되는 거면, 그냥 user를 리턴하면 될듯함.
@@ -73,6 +75,6 @@ public class IndexController {
 //            }
 //        }
         return user;
- */
+    }
 }
 
