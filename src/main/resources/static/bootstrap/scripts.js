@@ -51,7 +51,23 @@ function getAPI(userId) {
         timeout:5000,
     }).then(
         (response)=> {
-            alert('userId의 emotion&adId 조회 성공!');
+            const stringData = JSON.stringify(response);     // [object Object] -> string: {"nowEmotion":1,"adId":19,"emotion2":232,"emotion1":21,"emotion0":11}
+            const parseData = JSON.parse(stringData);       // string -> json 객체
+            console.log('******************************');
+            console.log(parseData.nowEmotion);
+            console.log(parseData.adId);
+            console.log(parseData.emotion0);
+            console.log(parseData.emotion1);
+            console.log(parseData.emotion2);
+
+            alert('userId의 emotion&adId 조회 성공! nowEmotion = ' + parseData.nowEmotion + ', 광고ID = ' + parseData.adId);
+            // $.ajax({
+            //     type: "GET",
+            //     url: '/home',
+            //
+            // })
+            // 여기서 index.mustache로 값을 전달하는 방법
+            window.location.href= "/home/response";
             // window.location.href = "/home/"+response.userId;
         },
         (error) => {

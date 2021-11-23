@@ -20,8 +20,8 @@ public class UserService {
     private AdvertisementRepository advertisementRepository;
 
     // 기분과 사용자 광고 조회
-    public Map<String, Integer> findEmotionAndAdId (Long userId) {
-        Map<String, Integer> data = new HashMap<String, Integer>();
+    public HashMap<String, Integer> findEmotionAndAdId (Long userId) {
+        HashMap<String, Integer> emotionAndAdId = new HashMap<String, Integer>();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다."));
 
@@ -31,32 +31,33 @@ public class UserService {
 //        Integer adId = Integer.parseInt(user.getAdId().toString());
         Integer adId = Integer.valueOf(String.valueOf(user.getAdId()));   // com.healing4u.healing4umobileWeb.model.Advertisement@116da866
 
-        data.put("emotion", user.getNowEmotion());
-        data.put("adId", adId);
+        emotionAndAdId.put("nowEmotion", user.getNowEmotion());
+        emotionAndAdId.put("adId", adId);
         // for loop (keySet())
         System.out.println("======해당 사용자의 emotion과 adId 조회======");
-        Set<String> keySet = data.keySet();
+        Set<String> keySet = emotionAndAdId.keySet();
         for (String key : keySet) {
-            System.out.println(key + " : " + data.get(key));
+            System.out.println(key + " : " + emotionAndAdId.get(key));
         }
-        return data;
+        return emotionAndAdId;
     }
-    
-//    public List<Object[]> countEmotions() {
-//        return userRepository.countEmotions();
-//    }
 
-//    public UsersResponseDto findById(Long userId) {
-//        Users entity = usersRepository.findById(userId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않스비다. id= " +userId));
-//
-//        return new UsersResponseDto(entity);
-//    }
-//
-    //사용자 id로 표정 가져오기
+//    public List<Object[]> findEmotionCount() {
+    public  HashMap<String,Integer> findEmotionCount() {
 
+        List<Object[]> emotionQuery= userRepository.countEmotions();
+        HashMap<String,Integer> emotionMap = new HashMap<String, Integer>();
 
-    //사용자 id의 광고 id를 가져와서 로컬 db에 저장하기
+        // Object[] 이므로 형변환 해줘야한다.
+        for (Object[] o : emotionQuery) {
+            String emotion = String.valueOf( o[0]);
+            int count = Integer.parseInt(o[1].toString());
+            emotionMap.put(emotion, count);
+        }
+        System.out.println(emotionMap.entrySet());
+        return emotionMap;
+    }
+
 //    public void localSaveAdId(Long userId) {
 //    }
 }
