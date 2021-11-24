@@ -20,8 +20,8 @@ public class UserService {
     private AdvertisementRepository advertisementRepository;
 
     // 기분과 사용자 광고 조회
-    public HashMap<String, Integer> findEmotionAndAdId (Long userId) {
-        HashMap<String, Integer> emotionAndAdId = new HashMap<String, Integer>();
+    public HashMap<String, String> findEmotionAndAdId (Long userId) {
+        HashMap<String, String> emotionAndAdId = new HashMap<String, String>();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다."));
 
@@ -29,9 +29,13 @@ public class UserService {
 //        System.out.println(user.getAdId().getClass());  // class com.healing4u.healing4umobileWeb.model.Advertisement
         System.out.println(user.getAdId());
 //        Integer adId = Integer.parseInt(user.getAdId().toString());
-        Integer adId = Integer.valueOf(String.valueOf(user.getAdId()));   // com.healing4u.healing4umobileWeb.model.Advertisement@116da866
+        String adId = String.valueOf(user.getAdId());   // com.healing4u.healing4umobileWeb.model.Advertisement@116da866
+        String nowEmotion = String.valueOf(user.getNowEmotion());
+        if (nowEmotion.equalsIgnoreCase("0")) nowEmotion = "맑음";
+        else if (nowEmotion.equalsIgnoreCase("1")) nowEmotion = "흐림";
+        else if (nowEmotion.equalsIgnoreCase("2")) nowEmotion = "비";
 
-        emotionAndAdId.put("nowEmotion", user.getNowEmotion());
+        emotionAndAdId.put("nowEmotion", nowEmotion);
         emotionAndAdId.put("adId", adId);
         // for loop (keySet())
         System.out.println("======해당 사용자의 emotion과 adId 조회======");
@@ -43,21 +47,46 @@ public class UserService {
     }
 
 //    public List<Object[]> findEmotionCount() {
-    public  HashMap<String,Integer> findEmotionCount() {
+    public  HashMap<String,String> findEmotionCount() {
 
         List<Object[]> emotionQuery= userRepository.countEmotions();
-        HashMap<String,Integer> emotionMap = new HashMap<String, Integer>();
+        HashMap<String,String> emotionMap = new HashMap<String, String>();
 
         // Object[] 이므로 형변환 해줘야한다.
         for (Object[] o : emotionQuery) {
             String emotion = String.valueOf( o[0]);
-            int count = Integer.parseInt(o[1].toString());
+            String count = String.valueOf(o[1]);
             emotionMap.put(emotion, count);
         }
         System.out.println(emotionMap.entrySet());
+        System.out.println("emotion0의 카운트 : "+ emotionMap.get("0"));
         return emotionMap;
     }
 
+    public HashMap<String, String> findUserData(Long userId) {
+        System.out.println("userService에서 : "+ userId);
+        HashMap<String, String> allData;
+
+        /*  1. userId로 기분 & 광고 조회 -> allData에 추가  */
+        allData = findEmotionAndAdId(userId);
+//        여기부터 수정 ㄱㄱ!!!!!!
+
+        /*  2. 사용자의 emotion 합계 조회  */
+        List<Object[]> emotionQuery= userRepository.countEmotions();
+        HashMap<String,String> emotionMap = findEmotionCount();    // {0: 15, 1: 19, 2: 4}
+//        HashMap<String,Integer> emotionMap = new HashMap<String, Integer>();
+
+        /*  3. users 테이블에서 adId 별 가장 높은 rating의 합계 : sum(rating) groupby adId desc (내림차순)  + 된다면 하루 치(24시간) 만 */
+
+        /*   */
+        /*  4. 데이터 합치기  */
+        for (String key : emotionMap.keySet()) {
+            String value = emotionMap.get(key);
+            allData.put("emotion"+ key, emotionMap.get(key));   // {nowEmotion: 11, adId: 16, emotion0 : 15, emotion1: 19, emotion2 : 4}
+        }
+        System.out.println(allData.entrySet()); // [nowEmotion="흐림", adId=19, emotion2=232, emotion1=21, emotion0=11]
+        return allData;
+    }
 //    public void localSaveAdId(Long userId) {
 //    }
 }

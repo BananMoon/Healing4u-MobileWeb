@@ -23,11 +23,10 @@ function setMyId() {
     console.log('당신의 id는 '+userId+ '입니다.');
     close();
     // 서버에게 userId값 전달 요청
-    getAPI(userId);
-    // 웹 로컬db에 저장
+    // getAPI(userId);
 
     // 페이지 로드
-    // widow.location=`/home/${myId}`;
+    window.location='/home/' + userId;
     // window.location.reload();
 }
    // $.ajax({
@@ -53,14 +52,20 @@ function getAPI(userId) {
         (response)=> {
             const stringData = JSON.stringify(response);     // [object Object] -> string: {"nowEmotion":1,"adId":19,"emotion2":232,"emotion1":21,"emotion0":11}
             const parseData = JSON.parse(stringData);       // string -> json 객체
-            console.log('******************************');
-            console.log(parseData.nowEmotion);
-            console.log(parseData.adId);
-            console.log(parseData.emotion0);
-            console.log(parseData.emotion1);
-            console.log(parseData.emotion2);
+            const nowEmotion = parseData.nowEmotion;
+            const adid = parseData.adId;
+            const emotion0 = parseData.emotion0;
+            const emotion1 = parseData.emotion1;
+            const emotion2 = parseData.emotion2;
+            // window.location.reload();
+            // console.log('******************************');
+            // console.log(parseData.nowEmotion);
+            // console.log(parseData.adId);
+            // console.log(parseData.emotion0);
+            // console.log(parseData.emotion1);
+            // console.log(parseData.emotion2);
 
-            alert('userId의 emotion&adId 조회 성공! nowEmotion = ' + parseData.nowEmotion + ', 광고ID = ' + parseData.adId);
+            // alert('userId의 emotion&adId 조회 성공! nowEmotion = ' + parseData.nowEmotion + ', 광고ID = ' + parseData.adId);
             // $.ajax({
             //     type: "GET",
             //     url: '/home',

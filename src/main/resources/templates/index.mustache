@@ -46,22 +46,22 @@
         <header class="masthead" id="my_weather">
             <div class="container">
                 <div class="masthead-subheading">오늘 당신의 마음의 날씨는?</div>
-                <div class="masthead-heading text-uppercase">{{emotion}}</div>
-                {{#isHappy}}
-                    <div class="masthead-emtion">
-                        <img src="/bootstrap/img/feel/smile.png" width=120>
-                    </div>
-                {{/isHappy}}
-                {{#isNone}}
-                    <div class="masthead-emtion">
-                        <img src="/bootstrap/img/feel/none.png" width=120>
-                    </div>
-                {{/isNone}}
-                {{#isSad}}
-                    <div class="masthead-emtion">
-                        <img src="/bootstrap/img/feel/sad.png" width=120>
-                    </div>
-                {{/isSad}}
+                <div class="masthead-heading text-uppercase">{{allData.nowEmotion}}</div>
+<!--                {{#isHappy}}-->
+<!--                    <div class="masthead-emtion">-->
+<!--                        <img src="/bootstrap/img/feel/smile.png" width=120>-->
+<!--                    </div>-->
+<!--                {{/isHappy}}-->
+<!--                {{#isNone}}-->
+<!--                    <div class="masthead-emtion">-->
+<!--                        <img src="/bootstrap/img/feel/none.png" width=120>-->
+<!--                    </div>-->
+<!--                {{/isNone}}-->
+<!--                {{#isSad}}-->
+<!--                    <div class="masthead-emtion">-->
+<!--                        <img src="/bootstrap/img/feel/sad.png" width=120>-->
+<!--                    </div>-->
+<!--                {{/isSad}}-->
 
                 <p class="text-muted"> </p>
                 <div>
@@ -83,20 +83,20 @@
                     <div class="col-md-4">
                         <img src="/bootstrap/img/feel/smile.png" width=120>
                         <h4 class="my-3">맑음</h4>
-                        <h5 class="text-muted">오늘 하루의 기분이 "맑음"인 사용자는 </br> {{happyCnt}}명입니다.</h5>
+                        <h5 class="text-muted">오늘 하루의 기분이 "맑음"인 사용자는 </br> {{allData.emotion0}}명입니다.</h5>
                         <!-- <h5 class="text-muted">* 명입니다.</h5> -->
                     </div>
                     <div class="col-md-4">
                         <img src="/bootstrap/img/feel/none.png" width=120>
                         <h4 class="my-3">흐림</h4>
-                        <h5 class="text-muted">오늘 하루의 기분이 "흐림"인 사용자는 </br> {{sadCnt}}명입니다.</h5>
+                        <h5 class="text-muted">오늘 하루의 기분이 "흐림"인 사용자는 </br> {{allData.emotion1}}명입니다.</h5>
                         <!-- <h5 class="text-muted">* 명입니다.</h5> -->
 
                     </div>
                     <div class="col-md-4">
                         <img src="/bootstrap/img/feel/sad.png" width=120>
                         <h4 class="my-3">비</h4>
-                        <h5 class="text-muted">오늘 하루의 기분이 "비"인 사용자는 </br>{{noneCnt}}명입니다.</h5>
+                        <h5 class="text-muted">오늘 하루의 기분이 "비"인 사용자는 </br>{{allData.emotion2}}명입니다.</h5>
                         <!-- <h5 class="text-muted">* 명입니다.</h5> -->
 
                     </div>
