@@ -71,20 +71,27 @@ public class UserService {
         allData = findEmotionAndAdId(userId);
 //        여기부터 수정 ㄱㄱ!!!!!!
 
-        /*  2. 사용자의 emotion 합계 조회  */
+        /*  2. 사용자의 emotion 합계 조회 -> allData에 추가  */
         List<Object[]> emotionQuery= userRepository.countEmotions();
         HashMap<String,String> emotionMap = findEmotionCount();    // {0: 15, 1: 19, 2: 4}
-//        HashMap<String,Integer> emotionMap = new HashMap<String, Integer>();
-
-        /*  3. users 테이블에서 adId 별 가장 높은 rating의 합계 : sum(rating) groupby adId desc (내림차순)  + 된다면 하루 치(24시간) 만 */
-
-        /*   */
-        /*  4. 데이터 합치기  */
         for (String key : emotionMap.keySet()) {
             String value = emotionMap.get(key);
             allData.put("emotion"+ key, emotionMap.get(key));   // {nowEmotion: 11, adId: 16, emotion0 : 15, emotion1: 19, emotion2 : 4}
         }
         System.out.println(allData.entrySet()); // [nowEmotion="흐림", adId=19, emotion2=232, emotion1=21, emotion0=11]
+
+        /*  3. users 테이블에서 adId 별 가장 높은 rating의 합계 : sum(rating) groupby adId desc (내림차순)  + 된다면 하루 치(24시간) 만  -> allData에 추가 */
+
+        /*  4. adId로 advertisements에서 serviceName, address, phone, detailLong, kakaomapUrl 등을 가져와서 데이터 합치기.   -> allData에 추가 */
+        Long adIdValue = Long.valueOf(allData.get("adId"));
+        Advertisement adQuery = advertisementRepository.findById(adIdValue)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 광고 아이디가 존재하지 않습니다."));
+        allData.put("adAddress", adQuery.getAddress());
+        allData.put("adServiceName", adQuery.getServiceName());
+        allData.put("adTel", adQuery.getTel());
+        allData.put("adKakaoMapUrl", adQuery.getKakaoMapUrl());
+        allData.put("adDetailLong", adQuery.getDetailLong());
+
         return allData;
     }
 //    public void localSaveAdId(Long userId) {
